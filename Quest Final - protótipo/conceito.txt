@@ -1,0 +1,43 @@
+o personagem do jogador vai ser pintado de alguma cor
+dependendo da cor, o mundo vai interagir de forma diferente com o jogador
+
+o sistema de cores escolhido é o tradicionalmente ensinado na escola: RYB
+
+para implementá-lo, cria-se a tabela com os índices para cada cor:
+
+VERMELHO	0
+AMARELO		1
+AZUL		2
+LARANJA		3
+ROXO		4
+VERDE		5
+BRANCO		6
+PRETO		7
+
+as cores do jogador determinam as camadas de colisão a serem ativadas:
+
+0: vermelho
+1: amarelo
+2: azul
+
+ou seja, os bits de colisão ficam:
+
+0 = true, se vermelho == 1, senão false
+1 = true, se amarelo == 1, senão false
+2 = true, se azul == 1, senão false
+
+
+elementos interativos do mundo:
+
+PORTÃO DE CORES:
+
+só permite a passagem do jogador caso ele esteja em determinada cor.
+o funcionamento é igual ao do jogador, mas os bits de colisão são invertidos.
+
+por exemplo, para um portão que só permite a passagem do jogador se ele estiver amarelo, os bits de colisão ficam:
+
+0 = false
+1 = true
+0 = false
+
+isso é porque os 3 primeiros bits de colisão do jogador são (true, false, true)

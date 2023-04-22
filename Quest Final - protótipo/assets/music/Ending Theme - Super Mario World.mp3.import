@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Ending Theme - Super Mario World.mp3-025133d665f29831465ea2c8b12f8161.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Ending Theme - Super Mario World.mp3"
+dest_files=[ "res://.import/Ending Theme - Super Mario World.mp3-025133d665f29831465ea2c8b12f8161.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

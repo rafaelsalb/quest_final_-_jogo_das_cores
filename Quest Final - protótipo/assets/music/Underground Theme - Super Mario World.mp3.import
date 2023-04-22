@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Underground Theme - Super Mario World.mp3-d4b22a58401685073f7fc09d527d49ae.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Underground Theme - Super Mario World.mp3"
+dest_files=[ "res://.import/Underground Theme - Super Mario World.mp3-d4b22a58401685073f7fc09d527d49ae.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
