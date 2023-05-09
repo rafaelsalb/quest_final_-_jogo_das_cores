@@ -2,6 +2,7 @@ extends Area2D
 
 
 export(bool) var clear_before_add
+export(bool) var CONSUMABLE
 export(int, "Red", "Yellow", "Blue", "Orange", "Purple", "Green", "White", "Black") var color_name
 
 var disabled: bool = false
@@ -13,6 +14,8 @@ func _ready():
 	connect("body_entered", self, "_on_ColorChanger_area_entered")
 	Global.connect("lights_off", self, "on_lights_off")
 	Global.connect("lights_on", self, "on_lights_on")
+	$Drops.process_material.color = PColors.COLORS[color_name]
+	$ClearColorParticle.visible = clear_before_add
 
 
 func _on_ColorChanger_area_entered(body):
@@ -21,10 +24,13 @@ func _on_ColorChanger_area_entered(body):
 			body.change_color(color_name)
 		else:
 			body.add_color(color_name)
+		if CONSUMABLE:
+			queue_free()
 
 
 func on_lights_off():
 	disabled = true
+
 
 func on_lights_on():
 	disabled = false

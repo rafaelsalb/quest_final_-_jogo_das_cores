@@ -18,6 +18,9 @@ func _ready():
 		print(name, " ", i, " ", get_collision_layer_bit(i))
 	
 	$Sprite.modulate = PColors.COLORS[color_name]
+	$Sprite2.modulate = PColors.COLORS[color_name]
+	$Particles2D.process_material.color = PColors.COLORS[color_name]
+	$Particles2D2.process_material.color = PColors.COLORS[color_name]
 	
 	var text = ""
 	for i in range(4):
@@ -42,6 +45,7 @@ func _process(_delta):
 func change_color(color_i: int) -> void:
 	var color = PColors.PColors.new(color_i)
 	$Sprite.modulate = color.color
+	$Sprite2.modulate = color.color
 	
 	for i in range(8):
 		set_collision_layer_bit(i, true)

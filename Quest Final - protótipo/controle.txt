@@ -1,0 +1,18 @@
+círculo esquerdo - lado do analógico:
+	raio de 31mm - diâmetro de 62mm
+	centro do furo do analógico posicionado exatamente no centro (coordenadas 31mm, 31mm)
+	raio do furo = raio da base do analógico - precisa medir
+
+retângulo central - conexão entre os dois círculos:
+	altura = 55mm
+	comprimento = 81mm
+	coordenadas de origem (vértice do canto superior esquerdo) = (31mm, 0mm)
+	posição do botão START (centro do retângulo) = (71.5mm, 31.5mm)
+	dimensões do botão START = (10mm, 5mm)
+
+círculo direito - lado dos botões:
+	raio de 31mm - diâmetro de 62 mm
+	posição do furo do LDR: (105.5mm, 20.5mm)
+	raio dos botões = 10mm
+	posição do furo do A: (105.5mm, 40.5 mm)
+	posição do furo do B: (122.5mm, 30.5 mm)

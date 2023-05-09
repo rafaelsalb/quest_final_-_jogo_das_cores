@@ -2,6 +2,7 @@ extends Node
 
 
 enum {RED, YELLOW, BLUE, ORANGE, PURPLE, GREEN, WHITE, BLACK}
+
 const COLORS = [
 	Color(1.0, 0.0, 0.0),
 	Color(1.0, 1.0, 0.0),
@@ -14,6 +15,7 @@ const COLORS = [
 ]
 
 const COLOR_NAMES = ["RED", "YELLOW", "BLUE", "ORANGE", "PURPLE", "GREEN", "WHITE", "BLACK"] # Indexes come from enum
+
 const NAMES_COLORS = {
 	"Red": 		RED,
 	"Yellow": 	YELLOW,
@@ -24,15 +26,17 @@ const NAMES_COLORS = {
 	"White": 	WHITE,
 	"Black": 	BLACK
 }
+
+
 const NAME_TO_Color = {
-	RED: Color(1.0, 0.0, 0.0),
+	RED: 	Color(1.0, 0.0, 0.0),
 	YELLOW: Color(1.0, 1.0, 0.0),
-	BLUE: Color(0.0, 0.0, 1.0),
+	BLUE: 	Color(0.0, 0.0, 1.0),
 	ORANGE: Color(1.0, 0.5, 0.0),
 	PURPLE: Color(0.5, 0.0, 0.5),
-	GREEN: Color(0.0, 1.0, 0.0),
-	WHITE: Color(1.0, 1.0, 1.0),
-	BLACK: Color(0.0, 0.0, 0.0)
+	GREEN: 	Color(0.0, 1.0, 0.0),
+	WHITE: 	Color(1.0, 1.0, 1.0),
+	BLACK: 	Color(0.0, 0.0, 0.0)
 }
 
 class PColors:
