@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/color_changer.png-d42a6f0720092825998375a14c71c777.stex"
+path="res://.import/lamp.png-748b2d0f32c767a7749cbb540818f874.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/color_changer.png"
-dest_files=[ "res://.import/color_changer.png-d42a6f0720092825998375a14c71c777.stex" ]
+source_file="res://assets/lamp.png"
+dest_files=[ "res://.import/lamp.png-748b2d0f32c767a7749cbb540818f874.stex" ]
 
 [params]
 
