@@ -1,0 +1,131 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://res/MainMenu_theme.tres" type="Theme" id=2]
+[ext_resource path="res://res/player_run.tres" type="Texture" id=3]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 64, 63 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 64, 63 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 64, 63 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 64, 63 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 256, 0, 64, 63 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 320, 0, 64, 63 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 384, 0, 64, 63 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 448, 0, 64, 63 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 4 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 1280, 720 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 120
+custom_constants/margin_top = 80
+custom_constants/margin_left = 120
+custom_constants/margin_bottom = 80
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 120.0
+margin_top = 80.0
+margin_right = 1160.0
+margin_bottom = 640.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 518.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 122.0
+margin_right = 518.0
+margin_bottom = 186.0
+rect_min_size = Vector2( 0, 64 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 2
+
+[node name="JogarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 206.0
+margin_right = 518.0
+margin_bottom = 270.0
+rect_min_size = Vector2( 0, 64 )
+text = "Jogar"
+
+[node name="ConfigurarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 290.0
+margin_right = 518.0
+margin_bottom = 354.0
+rect_min_size = Vector2( 0, 64 )
+text = "Configurar"
+
+[node name="SairButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 374.0
+margin_right = 518.0
+margin_bottom = 438.0
+rect_min_size = Vector2( 0, 64 )
+text = "Sair"
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 522.0
+margin_right = 1040.0
+margin_bottom = 560.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Sprite" type="AnimatedSprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
+scale = Vector2( 5, 5 )
+frames = SubResource( 9 )
+frame = 1
+playing = true
+offset = Vector2( 64, 64 )
+
+[node name="Sprite2" type="Sprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
+
+[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/JogarButton" to="." method="_on_JogarButton_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/SairButton" to="." method="_on_SairButton_button_up"]
