@@ -76,9 +76,11 @@ func update_label():
 
 func on_lights_off():
 	print(0)
-	change_color(PColors.BLACK)
+	$Sprite.modulate = PColors.COLORS[PColors.WHITE]
+	$Sprite.get_material().set_shader_param("invert", true)
 
 
 func on_lights_on():
 	print(1)
-	change_color(allowed_color)
+	$Sprite.modulate = PColors.COLORS[allowed_color]
+	$Sprite.get_material().set_shader_param("invert", false)

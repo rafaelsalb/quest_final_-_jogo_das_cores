@@ -8,6 +8,8 @@ func _ready():
 
 func on_lights_off():
 	enabled = false
+	$CanvasModulate.color = Color(0, 0, 0)
 
 func on_lights_on():
 	enabled = true
+	$CanvasModulate.color = Color(1, 1, 1)

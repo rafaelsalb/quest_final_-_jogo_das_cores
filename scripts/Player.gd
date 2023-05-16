@@ -84,19 +84,7 @@ func change_color(color_i: int) -> void:
 
 func add_color(color_i: int) -> void:
 	color = color.add(PColors.PColors.new(color_i))
-	Global.curr_color = color.name
-	$HUD/Control/CurrColorLabel.text = PColors.COLOR_NAMES[color.name]
-	
-	$AnimatedSprite.modulate = color.color
-	$HUD/ColorRect.color = color.color
-	
-	for i in range(8):
-		set_collision_layer_bit(i, false)
-		set_collision_mask_bit(i, false)
-	set_collision_layer_bit(color.name, true)
-	set_collision_mask_bit(color.name, true)
-	
-	update_label()
+	change_color(color.name)
 
 
 func update_label():
@@ -117,21 +105,30 @@ func update_label():
 
 
 func on_lights_off():
-	print(0)
+	$HUD/TextureRect.visible = true
+	$CanvasModulate.visible = true
+	$Light2D.enabled = true
 	
 	$AnimatedSprite.modulate = PColors.NAME_TO_Color.get(PColors.BLACK)
-	$HUD/ColorRect.color = color.color
 	
 	for i in range(8):
 		set_collision_layer_bit(i, false)
 		set_collision_mask_bit(i, false)
 	
+	$AnimatedSprite.modulate = PColors.COLORS[PColors.WHITE]
+	$AnimatedSprite.get_material().set_shader_param("invert", true)
+	
 	update_label()
 
 
 func on_lights_on():
-	print(1)
+	$HUD/TextureRect.visible = false
+	$CanvasModulate.visible = false
+	$Light2D.enabled = false
 	change_color(color.name)
+
+	$AnimatedSprite.modulate = color.color
+	$AnimatedSprite.get_material().set_shader_param("invert", false)
 
 
 func update_animation():
