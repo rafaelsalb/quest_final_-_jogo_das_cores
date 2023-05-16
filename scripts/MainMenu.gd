@@ -5,7 +5,7 @@ var time = 0
 
 
 func _on_JogarButton_button_up():
-	Global.change_level(1)
+	Global.change_level(0)
 
 
 func _on_SairButton_button_up():

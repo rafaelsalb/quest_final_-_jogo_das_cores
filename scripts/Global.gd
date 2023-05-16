@@ -1,7 +1,7 @@
 extends Node
 
 
-const LEVELS = ["MainMenu.tscn", "Level1.tscn", "TestLevel2.tscn"]
+const LEVELS = ["Level1.tscn", "TestLevel2.tscn"]
 
 
 var curr_color: int = PColors.WHITE
@@ -42,12 +42,17 @@ func change_level(i: int):
 func check_game_over():
 	if lives < 0:
 		lives = 3
-		change_level(0)
+		go_to_main_menu()
 		curr_color = PColors.WHITE
-	else:
+	elif lives :
 		curr_color = PColors.WHITE
 		get_tree().change_scene("res://scenes/" + LEVELS[curr_level])
 
 
 func switch_pause():
 	get_tree().paused = not get_tree().paused
+
+
+func go_to_main_menu():
+	get_tree().paused = false
+	get_tree().change_scene("res://scenes/MainMenu.tscn")

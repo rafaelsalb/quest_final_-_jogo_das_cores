@@ -1180,8 +1180,7 @@ z_index = 1
 z_as_relative = false
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 200, 183 )
-rotation = 0.00729648
+position = Vector2( 216, 192 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true

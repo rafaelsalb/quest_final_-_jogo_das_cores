@@ -29,6 +29,10 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide(mov_dir * 10, Vector2.UP)
 
+	if Global.debug:
+		if Input.is_action_just_released("kill_enemies"):
+			die()
+
 
 func _on_Kill_body_entered(body):
 	if body.name == "Player":
@@ -39,9 +43,11 @@ func die():
 	$CollisionShape2D.queue_free()
 	$Kill/CollisionShape2D.queue_free()
 	$AnimatedSprite.stop()
+	$AnimatedSprite.visible = false
+	$AnimatedSprite2.play("default")
+	$AnimatedSprite2.visible = true
 	set_physics_process(false)
 	$DeathTimer.start()
-	pass
 
 
 func _on_DeathTimer_timeout():

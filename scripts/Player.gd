@@ -13,6 +13,7 @@ onready var run_collision = get_node("RunCollisionShape")
 
 var horizontal_dir: float
 var color
+var points = 0
 
 
 func _ready() -> void:
@@ -21,6 +22,8 @@ func _ready() -> void:
 	change_color(color.name)
 	Global.connect("lights_off", self, "on_lights_off")
 	Global.connect("lights_on", self, "on_lights_on")
+	$HUD/Control/PointsCountLabel.text = str(points)
+	$HUD/Control/LivesCountLabel.text = str(Global.lives)
 
 
 func _unhandled_input(_event):
@@ -162,14 +165,28 @@ func die():
 	idle_collision.disabled = true
 	jump_collision.disabled = true
 	run_collision.disabled = true
-	Global.lives -= 1
+	update_lives(-1)
 	queue_free()
 	Global.check_game_over()
+
+
+func update_points(points_i):
+	points += points_i
+	$HUD/Control/PointsCountLabel.text = str(points)
+	if points >= 500:
+		points -= 500
+		update_lives(1)
+
+
+func update_lives(lives_i):
+	Global.lives += 1
+	$HUD/Control/LivesCountLabel.text = str(Global.lives)
 
 
 func _on_Stomp_body_entered(body):
 	if body.name.left(5) == "Enemy":
 		body.die()
+		points += 100
 
 
 func _on_DeathZone_area_entered(area):

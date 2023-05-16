@@ -173,12 +173,51 @@ margin_bottom = 226.0
 text = "Voltar ao menu principal"
 
 [node name="CurrLevelLabel" type="Label" parent="HUD/Control"]
-margin_left = 16.0
+margin_left = -72.0
 margin_top = 16.0
-margin_right = 217.0
+margin_right = 129.0
 margin_bottom = 64.0
 grow_vertical = 2
-text = "Current level"
+text = "Nivel"
+align = 2
+valign = 1
+
+[node name="LivesLabel" type="Label" parent="HUD/Control"]
+margin_left = -72.0
+margin_top = 64.0
+margin_right = 129.0
+margin_bottom = 112.0
+grow_vertical = 2
+text = "Vidas:"
+align = 2
+valign = 1
+
+[node name="LivesCountLabel" type="Label" parent="HUD/Control"]
+margin_left = 136.0
+margin_top = 64.0
+margin_right = 337.0
+margin_bottom = 112.0
+grow_vertical = 2
+text = "0"
+valign = 1
+
+[node name="PointsLabel" type="Label" parent="HUD/Control"]
+margin_left = -72.0
+margin_top = 112.0
+margin_right = 129.0
+margin_bottom = 160.0
+grow_vertical = 2
+text = "Pontos:"
+align = 2
+valign = 1
+
+[node name="PointsCountLabel" type="Label" parent="HUD/Control"]
+margin_left = 136.0
+margin_top = 112.0
+margin_right = 337.0
+margin_bottom = 160.0
+grow_vertical = 2
+text = "0"
 valign = 1
 
 [node name="CurrColorLabel" type="Label" parent="HUD/Control"]
@@ -232,5 +271,6 @@ position = Vector2( 0, 3.5 )
 shape = SubResource( 23 )
 
 [connection signal="button_down" from="HUD/Control/PauseMenu/ResumeButton" to="HUD" method="_on_ResumeButton_button_down"]
+[connection signal="button_down" from="HUD/Control/PauseMenu/MenuButton" to="HUD" method="_on_MenuButton_button_down"]
 [connection signal="body_entered" from="Stomp" to="." method="_on_Stomp_body_entered"]
 [connection signal="area_entered" from="DeathZone" to="." method="_on_DeathZone_area_entered"]

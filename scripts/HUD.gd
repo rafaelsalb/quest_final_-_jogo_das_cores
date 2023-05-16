@@ -2,7 +2,7 @@ extends CanvasLayer
 
 
 func _ready():
-	$Control/CurrLevelLabel.text = "Nível " + str(Global.curr_level)
+	$Control/CurrLevelLabel.text = "Nivel " + str(Global.curr_level)
 
 
 func switch_pause():
@@ -17,3 +17,7 @@ func _unhandled_input(_event):
 func _on_ResumeButton_button_down():
 	Global.switch_pause()
 	switch_pause()
+
+
+func _on_MenuButton_button_down():
+	Global.change_level(0)
