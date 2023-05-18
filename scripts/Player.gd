@@ -105,9 +105,11 @@ func update_label():
 
 
 func on_lights_off():
-	$HUD/TextureRect.visible = true
-	$CanvasModulate.visible = true
-	$Light2D.enabled = true
+#	$HUD/BlackAndWhiteEffect.visible = true
+#	$CanvasModulate.visible = true
+#	$Light2D.enabled = true
+	
+	$AnimationPlayer.play("light_off")
 	
 	$AnimatedSprite.modulate = PColors.NAME_TO_Color.get(PColors.BLACK)
 	
@@ -122,10 +124,11 @@ func on_lights_off():
 
 
 func on_lights_on():
-	$HUD/TextureRect.visible = false
-	$CanvasModulate.visible = false
-	$Light2D.enabled = false
+#	$HUD/BlackAndWhiteEffect.visible = false
+#	$CanvasModulate.visible = false
+#	$Light2D.enabled = false
 	change_color(color.name)
+	$AnimationPlayer.play_backwards("light_off")
 
 	$AnimatedSprite.modulate = color.color
 	$AnimatedSprite.get_material().set_shader_param("invert", false)
@@ -213,3 +216,8 @@ func update_collision(action: String):
 		$DeathZone/JumpCollisionShape.disabled = true
 		run_collision.disabled = false
 		$DeathZone/RunCollisionShape.disabled = false
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	#$AnimationPlayer.
+	pass
