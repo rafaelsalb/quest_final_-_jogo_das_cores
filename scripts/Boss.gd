@@ -1,8 +1,7 @@
-extends KinematicBody2D
+extends Area2D
 
 
-export var GRAVITY: int = 1
-export(bool) var AVOID_FALL = true
+export var GRAVITY: int = 0
 
 const mov_dir: Vector2 = Vector2()
 
@@ -15,13 +14,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_wall():
 		horizontal_dir *= -1
-		$RayCast2D.set_cast_to(Vector2(32 * horizontal_dir, 32))
-		position.x += coll_shape.shape.get_extents().x / 2 * horizontal_dir
-		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
-	
-	if AVOID_FALL and $RayCast2D.get_collider() == null:
-		horizontal_dir *= -1
-		$RayCast2D.set_cast_to(Vector2(32 * horizontal_dir, 32))
+		position.x += coll_shape.shape.get_extents().x / 20 * horizontal_dir
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 	
 	if not is_on_floor():
@@ -36,7 +29,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_Kill_body_entered(body):
 	if body.name == "Player":
-		body.take_damage(1, horizontal_dir)
+		body.die()
 
 
 func die():

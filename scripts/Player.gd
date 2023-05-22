@@ -13,16 +13,17 @@ onready var run_collision = get_node("RunCollisionShape")
 
 var horizontal_dir: float
 var color
-var points = 0
+var points
 
 
 func _ready() -> void:
+	points = 3
 	mov_dir.y = 0
 	color = PColors.PColors.new(Global.curr_color)
 	change_color(color.name)
 	Global.connect("lights_off", self, "on_lights_off")
 	Global.connect("lights_on", self, "on_lights_on")
-	$HUD/Control/PointsCountLabel.text = str(points)
+	
 	$HUD/Control/LivesCountLabel.text = str(Global.lives)
 
 
@@ -37,6 +38,9 @@ func _unhandled_input(_event):
 		change_color(PColors.BLACK)
 	if Input.is_action_just_pressed("white_color"):
 		change_color(PColors.WHITE)
+	
+	if Input.is_action_just_pressed("take_damage"):
+		take_damage(1, 1)
 	
 	for i in range(1, 9):
 		if Input.is_action_just_pressed("num_" + str(i)):
@@ -62,6 +66,10 @@ func change_color(color_i: int) -> void:
 	color = PColors.PColors.new(color_i)
 	Global.curr_color = color_i
 	$HUD/Control/CurrColorLabel.text = PColors.COLOR_NAMES[color.name]
+	$HUD/Control/LeftCorner.modulate = color.color
+	$HUD/Control/LifeCounter0.modulate = color.color
+	$HUD/Control/LifeCounter1.modulate = color.color
+	$Damage.process_material.color = color.color
 	
 	if color_i != PColors.BLACK:
 		$AnimatedSprite.modulate = color.color
@@ -160,6 +168,17 @@ func update_animation():
 		update_collision("jump")
 
 
+func take_damage(dmg, dir):
+	if points - dmg < 0:
+		die()
+		pass
+	
+	update_points(-dmg)
+	$Damage.emitting = true
+#	mov_dir.x = dir * 10.0
+	mov_dir.y = -JUMP_STRENGTH / 2.0
+
+
 func die():
 	animation_player.play("die")
 	idle_collision.disabled = true
@@ -171,22 +190,21 @@ func die():
 
 
 func update_points(points_i):
-	points += points_i
-	$HUD/Control/PointsCountLabel.text = str(points)
-	if points >= 500:
-		points -= 500
-		update_lives(1)
+	points = clamp(points + points_i, 0, 3)
+	$HUD/Control/LifeCounter0.rect_size.x = 32 * (3 - points)
+	$HUD/Control/LifeCounter1.rect_size.x = 32 * points
 
 
 func update_lives(lives_i):
-	Global.lives += 1
+	Global.lives += lives_i
 	$HUD/Control/LivesCountLabel.text = str(Global.lives)
 
 
 func _on_Stomp_body_entered(body):
 	if body.name.left(5) == "Enemy":
+		mov_dir.y = -JUMP_STRENGTH / 2.0
 		body.die()
-		points += 100
+		update_points(1)
 
 
 func _on_DeathZone_area_entered(area):

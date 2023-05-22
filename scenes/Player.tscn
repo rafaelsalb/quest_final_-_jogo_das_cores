@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://res/player_jump.tres" type="Texture" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://res/HUD_theme.tres" type="Theme" id=8]
 [ext_resource path="res://assets/global_light.png" type="Texture" id=9]
 [ext_resource path="res://assets/light.png" type="Texture" id=10]
+[ext_resource path="res://assets/life_counter.png" type="Texture" id=11]
+[ext_resource path="res://assets/life_counter_empty.png" type="Texture" id=12]
+[ext_resource path="res://assets/hud_left.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 11, 28.5 )
@@ -19,6 +22,23 @@ extents = Vector2( 12.5, 27.5 )
 
 [sub_resource type="RectangleShape2D" id=23]
 extents = Vector2( 23, 28.5 )
+
+[sub_resource type="Curve" id=29]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.10315, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=30]
+curve = SubResource( 29 )
+
+[sub_resource type="ParticlesMaterial" id=28]
+resource_local_to_scene = true
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 196, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 4.0
+scale_curve = SubResource( 30 )
 
 [sub_resource type="Shader" id=25]
 code = "shader_type canvas_item;
@@ -170,6 +190,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 0.0, 1.0 ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("HUD/BlackAndWhiteEffect:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 light_mask = 2
@@ -194,12 +226,20 @@ visible = false
 position = Vector2( 0, 3.5 )
 shape = SubResource( 23 )
 
+[node name="Damage" type="Particles2D" parent="."]
+emitting = false
+amount = 32
+one_shot = true
+local_coords = false
+process_material = SubResource( 28 )
+
 [node name="HUD" type="CanvasLayer" parent="."]
 pause_mode = 2
 script = ExtResource( 7 )
 
 [node name="BlackAndWhiteEffect" type="TextureRect" parent="HUD"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 26 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -226,6 +266,13 @@ margin_bottom = 168.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 8 )
+
+[node name="LeftCorner" type="TextureRect" parent="HUD/Control"]
+modulate = Color( 0.25098, 0.25098, 0.25098, 1 )
+light_mask = 0
+margin_right = 268.0
+margin_bottom = 130.0
+texture = ExtResource( 13 )
 
 [node name="PauseMenu" type="VBoxContainer" parent="HUD/Control"]
 visible = false
@@ -268,49 +315,48 @@ margin_bottom = 226.0
 text = "Voltar ao menu principal"
 
 [node name="CurrLevelLabel" type="Label" parent="HUD/Control"]
-margin_left = -72.0
-margin_top = 16.0
-margin_right = 129.0
-margin_bottom = 64.0
+margin_left = 16.0
+margin_top = 72.0
+margin_right = 217.0
+margin_bottom = 120.0
 grow_vertical = 2
 text = "Nivel"
-align = 2
 valign = 1
 
+[node name="LifeCounter1" type="TextureRect" parent="HUD/Control"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 112.0
+margin_bottom = 48.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 2
+
+[node name="LifeCounter0" type="TextureRect" parent="HUD/Control"]
+margin_left = 112.0
+margin_top = 48.0
+margin_right = 208.0
+margin_bottom = 80.0
+rect_rotation = 180.0
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 2
+
 [node name="LivesLabel" type="Label" parent="HUD/Control"]
-margin_left = -72.0
-margin_top = 64.0
-margin_right = 129.0
-margin_bottom = 112.0
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 217.0
+margin_bottom = 56.0
 grow_vertical = 2
 text = "Vidas:"
 align = 2
 valign = 1
 
 [node name="LivesCountLabel" type="Label" parent="HUD/Control"]
-margin_left = 136.0
-margin_top = 64.0
-margin_right = 337.0
-margin_bottom = 112.0
-grow_vertical = 2
-text = "0"
-valign = 1
-
-[node name="PointsLabel" type="Label" parent="HUD/Control"]
-margin_left = -72.0
-margin_top = 112.0
-margin_right = 129.0
-margin_bottom = 160.0
-grow_vertical = 2
-text = "Pontos:"
-align = 2
-valign = 1
-
-[node name="PointsCountLabel" type="Label" parent="HUD/Control"]
-margin_left = 136.0
-margin_top = 112.0
-margin_right = 337.0
-margin_bottom = 160.0
+margin_left = 224.0
+margin_top = 8.0
+margin_right = 425.0
+margin_bottom = 56.0
 grow_vertical = 2
 text = "0"
 valign = 1

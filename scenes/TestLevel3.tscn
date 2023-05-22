@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/TestLevel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ColorGate.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/tilemaps/level_building.tres" type="TileSet" id=5]
 [ext_resource path="res://scenes/Lamp.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/CheckPoint.tscn" type="PackedScene" id=7]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -10, 29, 8, 29, 8, 30, -10, 30 )
@@ -100,9 +101,12 @@ position = Vector2( 0, 2 )
 occluder = SubResource( 1 )
 
 [node name="Lamp" parent="." instance=ExtResource( 6 )]
-position = Vector2( 290, 32 )
+position = Vector2( 288, 34 )
 scale = Vector2( 2, 2 )
 range_layer_min = -10
 range_layer_max = 10
 range_item_cull_mask = 1
 shadow_item_cull_mask = 1
+
+[node name="CheckPoint" parent="." instance=ExtResource( 7 )]
+position = Vector2( 544, 160 )

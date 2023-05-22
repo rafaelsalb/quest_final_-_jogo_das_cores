@@ -44,7 +44,7 @@ func check_game_over():
 		lives = 3
 		go_to_main_menu()
 		curr_color = PColors.WHITE
-	elif lives :
+	else:
 		curr_color = PColors.WHITE
 		get_tree().change_scene("res://scenes/" + LEVELS[curr_level])
 
@@ -55,4 +55,8 @@ func switch_pause():
 
 func go_to_main_menu():
 	get_tree().paused = false
-	get_tree().change_scene("res://scenes/MainMenu.tscn")
+	get_parent().get_tree().change_scene("res://scenes/MainMenu.tscn")
+
+
+func checkpoint_checked(pos):
+	print(pos)
