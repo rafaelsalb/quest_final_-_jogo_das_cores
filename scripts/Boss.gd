@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 
 export var GRAVITY: int = 0
@@ -6,9 +6,7 @@ export var GRAVITY: int = 0
 const mov_dir: Vector2 = Vector2()
 
 onready var coll_shape = get_node("CollisionShape2D")
-onready var projectile = preload("res://scenes/Projectile.tscn")
 var horizontal_dir = 1
-var aiming_at = Vector2.ZERO
 
 
 func _physics_process(delta: float) -> void:
@@ -18,6 +16,9 @@ func _physics_process(delta: float) -> void:
 		horizontal_dir *= -1
 		position.x += coll_shape.shape.get_extents().x / 20 * horizontal_dir
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
+	
+	if not is_on_floor():
+		mov_dir.y += GRAVITY
 	
 	move_and_slide(mov_dir * 10, Vector2.UP)
 
@@ -44,9 +45,3 @@ func die():
 
 func _on_DeathTimer_timeout():
 	queue_free()
-
-
-func _on_Timer_timeout():
-	var projectile_instance = projectile.instance()
-	add_child(projectile_instance)
-	projectile.mov_dir = aiming_at

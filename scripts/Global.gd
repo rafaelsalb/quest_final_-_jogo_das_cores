@@ -1,7 +1,7 @@
 extends Node
 
 
-const LEVELS = ["Level1.tscn", "TestLevel2.tscn"]
+const LEVELS = ["Level1.tscn", "Level2.tscn"]
 
 
 var curr_color: int = PColors.WHITE
@@ -9,6 +9,7 @@ var curr_level: int = 1
 var debug: bool = false
 var lights_on: bool = false
 var lives: int = 3
+var is_player_in_dark_area
 
 
 signal switch_debug_mode
@@ -20,12 +21,20 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("debug"):
 		debug = not debug
 		emit_signal("switch_debug_mode")
-	if Input.is_action_just_pressed("switch_light"):
+	if Input.is_action_just_pressed("switch_light"): #and is_player_in_dark_area:
 		lights_on = not lights_on
 		if lights_on:
 			emit_signal("lights_off")
 		else:
 			emit_signal("lights_on")
+
+
+func set_lights(x: bool):
+	lights_on = not lights_on
+	if lights_on:
+		emit_signal("lights_off")
+	else:
+		emit_signal("lights_on")
 
 
 func _input(_event):
@@ -60,3 +69,9 @@ func go_to_main_menu():
 
 func checkpoint_checked(pos):
 	print(pos)
+
+
+func set_is_player_in_dark_area(x: bool):
+	is_player_in_dark_area = x
+	if not x:
+		emit_signal("lights_on")

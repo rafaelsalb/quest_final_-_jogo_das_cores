@@ -236,6 +236,9 @@ func update_collision(action: String):
 		$DeathZone/RunCollisionShape.disabled = false
 
 
-func _on_AnimationPlayer_animation_finished(anim_name):
-	#$AnimationPlayer.
-	pass
+func _on_DarkAreaScanner_area_entered(area):
+	Global.set_is_player_in_dark_area(true)
+
+
+func _on_DarkAreaScanner_area_exited(area):
+	Global.set_is_player_in_dark_area(false)
