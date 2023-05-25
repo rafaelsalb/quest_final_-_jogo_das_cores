@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Boss.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -14,7 +14,13 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 128, 96 )
 
-[node name="Boss" type="Area2D"]
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 130, 90 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 118, 3 )
+
+[node name="Boss" type="KinematicBody2D"]
 collision_layer = 256
 collision_mask = 256
 script = ExtResource( 1 )
@@ -28,40 +34,48 @@ frames = SubResource( 1 )
 visible = false
 shape = SubResource( 2 )
 
-[node name="Raycasts" type="Node" parent="."]
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 32, 0 )
 
-[node name="RayCast2D" type="RayCast2D" parent="Raycasts"]
-position = Vector2( 0, 80 )
-enabled = true
-cast_to = Vector2( 144, 0 )
+[node name="CannonSprite" type="Sprite" parent="."]
+scale = Vector2( 1, 0.5 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( 0, -32 )
+
+[node name="ShootCooldown" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="DamageCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -32.0
+margin_top = -64.0
+margin_right = 32.0
+margin_bottom = -32.0
+
+[node name="KillPlayerArea" type="Area2D" parent="."]
+collision_layer = 256
 collision_mask = 256
 
-[node name="RayCast2D2" type="RayCast2D" parent="Raycasts"]
-position = Vector2( 0, 48 )
-enabled = true
-cast_to = Vector2( 144, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillPlayerArea"]
+shape = SubResource( 3 )
+
+[node name="WeakSpotArea" type="Area2D" parent="."]
+position = Vector2( 0, -90 )
+collision_layer = 256
 collision_mask = 256
 
-[node name="RayCast2D3" type="RayCast2D" parent="Raycasts"]
-position = Vector2( 0, 16 )
-enabled = true
-cast_to = Vector2( 144, 0 )
-collision_mask = 256
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeakSpotArea"]
+position = Vector2( 0, -4 )
+shape = SubResource( 4 )
 
-[node name="RayCast2D4" type="RayCast2D" parent="Raycasts"]
-position = Vector2( 0, -16 )
-enabled = true
-cast_to = Vector2( 144, 0 )
-collision_mask = 256
-
-[node name="RayCast2D5" type="RayCast2D" parent="Raycasts"]
-position = Vector2( 0, -48 )
-enabled = true
-cast_to = Vector2( 144, 0 )
-collision_mask = 256
-
-[node name="RayCast2D6" type="RayCast2D" parent="Raycasts"]
-position = Vector2( 0, -80 )
-enabled = true
-cast_to = Vector2( 144, 0 )
-collision_mask = 256
+[connection signal="timeout" from="ShootCooldown" to="." method="_on_ShootCooldown_timeout"]
+[connection signal="timeout" from="DamageCooldown" to="." method="_on_DamageCooldown_timeout"]
+[connection signal="body_entered" from="KillPlayerArea" to="." method="_on_KillPlayerArea_body_entered"]
+[connection signal="body_entered" from="WeakSpotArea" to="." method="_on_WeakSpotArea_body_entered"]

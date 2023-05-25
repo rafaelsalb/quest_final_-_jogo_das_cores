@@ -13,7 +13,6 @@
 [ext_resource path="res://assets/life_counter.png" type="Texture" id=11]
 [ext_resource path="res://assets/life_counter_empty.png" type="Texture" id=12]
 [ext_resource path="res://assets/hud_left.png" type="Texture" id=13]
-[ext_resource path="res://assets/fonts/Calibri Regular.ttf" type="DynamicFontData" id=14]
 
 [sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 11, 28.5 )
@@ -57,13 +56,6 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=26]
 shader = SubResource( 25 )
 shader_param/intensity = 1.0
-
-[sub_resource type="DynamicFont" id=32]
-size = 36
-font_data = ExtResource( 14 )
-
-[sub_resource type="Theme" id=33]
-default_font = SubResource( 32 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
@@ -135,6 +127,15 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 9, 1 )
+
+[sub_resource type="RectangleShape2D" id=32]
+extents = Vector2( 11.5, 29.5 )
+
+[sub_resource type="RectangleShape2D" id=33]
+extents = Vector2( 13.5, 29.5 )
+
+[sub_resource type="RectangleShape2D" id=34]
+extents = Vector2( 24, 29.5 )
 
 [sub_resource type="Animation" id=27]
 resource_name = "light_off"
@@ -216,8 +217,8 @@ extents = Vector2( 24, 28 )
 
 [node name="Player" type="KinematicBody2D"]
 light_mask = 2
-collision_layer = 1280
-collision_mask = 1280
+collision_layer = 3328
+collision_mask = 3328
 script = ExtResource( 1 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
@@ -359,7 +360,7 @@ margin_top = 8.0
 margin_right = 217.0
 margin_bottom = 56.0
 grow_vertical = 2
-theme = SubResource( 33 )
+text = "Vidas:"
 align = 2
 valign = 1
 
@@ -406,21 +407,20 @@ position = Vector2( -1, 32 )
 shape = SubResource( 24 )
 
 [node name="DeathZone" type="Area2D" parent="."]
+collision_layer = 2048
+collision_mask = 2048
 
 [node name="IdleCollisionShape" type="CollisionShape2D" parent="DeathZone"]
-visible = false
 position = Vector2( -2, 3.5 )
-shape = SubResource( 21 )
+shape = SubResource( 32 )
 
 [node name="JumpCollisionShape" type="CollisionShape2D" parent="DeathZone"]
-visible = false
 position = Vector2( -0.5, 2.5 )
-shape = SubResource( 22 )
+shape = SubResource( 33 )
 
 [node name="RunCollisionShape" type="CollisionShape2D" parent="DeathZone"]
-visible = false
 position = Vector2( 0, 3.5 )
-shape = SubResource( 23 )
+shape = SubResource( 34 )
 
 [node name="Light2D" type="Light2D" parent="."]
 enabled = false
@@ -440,9 +440,14 @@ visible = false
 position = Vector2( 0, 4 )
 shape = SubResource( 31 )
 
+[node name="DamageCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="button_down" from="HUD/Control/PauseMenu/ResumeButton" to="HUD" method="_on_ResumeButton_button_down"]
 [connection signal="button_down" from="HUD/Control/PauseMenu/MenuButton" to="HUD" method="_on_MenuButton_button_down"]
 [connection signal="body_entered" from="Stomp" to="." method="_on_Stomp_body_entered"]
 [connection signal="area_entered" from="DeathZone" to="." method="_on_DeathZone_area_entered"]
+[connection signal="body_entered" from="DeathZone" to="." method="_on_DeathZone_body_entered"]
 [connection signal="area_entered" from="DarkAreaScanner" to="." method="_on_DarkAreaScanner_area_entered"]
 [connection signal="area_exited" from="DarkAreaScanner" to="." method="_on_DarkAreaScanner_area_exited"]
+[connection signal="timeout" from="DamageCooldownTimer" to="." method="_on_DamageCooldownTimer_timeout"]

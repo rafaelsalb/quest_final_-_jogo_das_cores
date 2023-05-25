@@ -39,6 +39,17 @@ const NAME_TO_Color = {
 	BLACK: 	Color(0.0, 0.0, 0.0)
 }
 
+const Color_TO_NAME = {
+	Color(1.0, 0.0, 0.0): RED,
+	Color(1.0, 1.0, 0.0): YELLOW,
+	Color(0.0, 0.0, 1.0): BLUE,
+	Color(1.0, 0.5, 0.0): ORANGE,
+	Color(0.5, 0.0, 0.5): PURPLE,
+	Color(0.0, 1.0, 0.0): GREEN,
+	Color(1.0, 1.0, 1.0): WHITE,
+	Color(0.0, 0.0, 0.0): BLACK
+}
+
 class PColors:
 	var name: int
 	var color: Color

@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 export var GRAVITY: int = 1
 
-const mov_dir: Vector2 = Vector2()
+var mov_dir: Vector2 = Vector2()
 const JUMP_STRENGTH: int = 40
 
 onready var animation_player = get_node("AnimatedSprite")
@@ -19,7 +19,6 @@ var points
 func _ready() -> void:
 	points = 3
 	mov_dir.y = 0
-	mov_dir.x = 0
 	color = PColors.PColors.new(Global.curr_color)
 	change_color(color.name)
 	Global.connect("lights_off", self, "on_lights_off")
@@ -170,14 +169,16 @@ func update_animation():
 
 
 func take_damage(dmg, dir):
-	if points - dmg < 0:
-		die()
-		pass
-	
-	update_points(-dmg)
-	$Damage.emitting = true
-#	mov_dir.x = dir * 10.0
-	mov_dir.y = -JUMP_STRENGTH / 2.0
+	if $DamageCooldownTimer.is_stopped():
+		$DamageCooldownTimer.start()
+		if points - dmg < 0:
+			die()
+			pass
+		
+		update_points(-dmg)
+		$Damage.emitting = true
+	#	mov_dir.x = dir * 10.0
+		mov_dir.y = -JUMP_STRENGTH / 2.0
 
 
 func die():
@@ -210,7 +211,7 @@ func _on_Stomp_body_entered(body):
 
 func _on_DeathZone_area_entered(area):
 	if area.name.left(len("Espinhos")) == "Espinhos":
-		die()
+		take_damage(1, 0)
 
 
 func update_collision(action: String):
@@ -243,3 +244,17 @@ func _on_DarkAreaScanner_area_entered(area):
 
 func _on_DarkAreaScanner_area_exited(area):
 	Global.set_is_player_in_dark_area(false)
+
+
+func impulse(strength):
+	mov_dir.y = -strength
+
+
+func _on_DeathZone_body_entered(body):
+	if body.name.left(len("Projectile")) == "Projectile" or body.name.left(len("@Projectile")) == "@Projectile" and body.active:
+		take_damage(1, body.mov_dir.x)
+		body.explode()
+
+
+func _on_DamageCooldownTimer_timeout():
+	pass
