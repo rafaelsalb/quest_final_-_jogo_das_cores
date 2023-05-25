@@ -19,6 +19,7 @@ var points
 func _ready() -> void:
 	points = 3
 	mov_dir.y = 0
+	mov_dir.x = 0
 	color = PColors.PColors.new(Global.curr_color)
 	change_color(color.name)
 	Global.connect("lights_off", self, "on_lights_off")

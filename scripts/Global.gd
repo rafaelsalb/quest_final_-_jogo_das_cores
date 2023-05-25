@@ -4,8 +4,10 @@ extends Node
 const LEVELS = ["Level1.tscn", "Level2.tscn"]
 
 
+var checkpoint_pos: Vector2 = Vector2.ZERO
+var checkpoint_checked: bool = false
 var curr_color: int = PColors.WHITE
-var curr_level: int = 1
+var curr_level: int = 0
 var debug: bool = false
 var lights_on: bool = false
 var lives: int = 3
@@ -51,8 +53,10 @@ func change_level(i: int):
 func check_game_over():
 	if lives < 0:
 		lives = 3
-		go_to_main_menu()
 		curr_color = PColors.WHITE
+		checkpoint_checked = false
+		checkpoint_pos = Vector2.ZERO
+		go_to_main_menu()
 	else:
 		curr_color = PColors.WHITE
 		get_tree().change_scene("res://scenes/" + LEVELS[curr_level])
@@ -68,7 +72,8 @@ func go_to_main_menu():
 
 
 func checkpoint_checked(pos):
-	print(pos)
+	checkpoint_checked = true
+	checkpoint_pos = pos
 
 
 func set_is_player_in_dark_area(x: bool):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://res/player_jump.tres" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/life_counter.png" type="Texture" id=11]
 [ext_resource path="res://assets/life_counter_empty.png" type="Texture" id=12]
 [ext_resource path="res://assets/hud_left.png" type="Texture" id=13]
+[ext_resource path="res://assets/fonts/Calibri Regular.ttf" type="DynamicFontData" id=14]
 
 [sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 11, 28.5 )
@@ -56,6 +57,13 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=26]
 shader = SubResource( 25 )
 shader_param/intensity = 1.0
+
+[sub_resource type="DynamicFont" id=32]
+size = 36
+font_data = ExtResource( 14 )
+
+[sub_resource type="Theme" id=33]
+default_font = SubResource( 32 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
@@ -351,7 +359,7 @@ margin_top = 8.0
 margin_right = 217.0
 margin_bottom = 56.0
 grow_vertical = 2
-text = "Vidas:"
+theme = SubResource( 33 )
 align = 2
 valign = 1
 

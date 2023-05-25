@@ -1,10 +1,10 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/ColorChanger.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/ColorGate.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/mariotile.png" type="Texture" id=4]
-[ext_resource path="res://scripts/TestLevel.gd" type="Script" id=5]
+[ext_resource path="res://scenes/CheckPoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/Espinhos.gd" type="Script" id=7]
 [ext_resource path="res://scenes/Espinhos.tscn" type="PackedScene" id=8]
@@ -13,6 +13,7 @@
 [ext_resource path="res://QC_BackGround 16x16.png" type="Texture" id=11]
 [ext_resource path="res://QC_TileSet_Wood 16x16.png" type="Texture" id=12]
 [ext_resource path="res://QC_Objects 16x16.png" type="Texture" id=13]
+[ext_resource path="res://scripts/Level.gd" type="Script" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=42]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -1110,7 +1111,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 36/z_index = 0
 
 [node name="Level1" type="Node2D"]
-script = ExtResource( 5 )
+script = ExtResource( 14 )
 
 [node name="espinhos" type="TileMap" parent="."]
 tile_set = SubResource( 43 )
@@ -1180,7 +1181,7 @@ z_index = 1
 z_as_relative = false
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 10304, 544 )
+position = Vector2( 2864, 728 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -1492,3 +1493,6 @@ color_name = 1
 [node name="ColorChanger16" parent="." instance=ExtResource( 2 )]
 position = Vector2( 9141.18, 990.825 )
 color_name = 6
+
+[node name="CheckPoint" parent="." instance=ExtResource( 5 )]
+position = Vector2( 3040, 792 )
