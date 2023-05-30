@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://res/player_jump.tres" type="Texture" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://assets/life_counter.png" type="Texture" id=11]
 [ext_resource path="res://assets/life_counter_empty.png" type="Texture" id=12]
 [ext_resource path="res://assets/hud_left.png" type="Texture" id=13]
+[ext_resource path="res://assets/heart.png" type="Texture" id=14]
+[ext_resource path="res://assets/sfx/Retro Impact 20.wav" type="AudioStream" id=15]
 
 [sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 11, 28.5 )
@@ -326,6 +328,21 @@ margin_right = 389.0
 margin_bottom = 226.0
 text = "Voltar ao menu principal"
 
+[node name="MusicaCheckButton" type="CheckButton" parent="HUD/Control/PauseMenu"]
+visible = false
+margin_top = 174.0
+margin_right = 389.0
+margin_bottom = 226.0
+pressed = true
+text = "Musica"
+
+[node name="VoltarButton" type="Button" parent="HUD/Control/PauseMenu"]
+visible = false
+margin_top = 174.0
+margin_right = 389.0
+margin_bottom = 226.0
+text = "Voltar"
+
 [node name="CurrLevelLabel" type="Label" parent="HUD/Control"]
 margin_left = 16.0
 margin_top = 72.0
@@ -355,6 +372,7 @@ expand = true
 stretch_mode = 2
 
 [node name="LivesLabel" type="Label" parent="HUD/Control"]
+visible = false
 margin_left = 16.0
 margin_top = 8.0
 margin_right = 217.0
@@ -383,6 +401,12 @@ margin_bottom = 214.0
 grow_horizontal = 2
 text = "COLOR"
 align = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Control"]
+margin_left = 151.0
+margin_right = 215.0
+margin_bottom = 64.0
+texture = ExtResource( 14 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = -41.0
@@ -443,8 +467,15 @@ shape = SubResource( 31 )
 [node name="DamageCooldownTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="ImpactSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = -14.0
+
 [connection signal="button_down" from="HUD/Control/PauseMenu/ResumeButton" to="HUD" method="_on_ResumeButton_button_down"]
+[connection signal="button_up" from="HUD/Control/PauseMenu/SettingsButton" to="HUD" method="_on_SettingsButton_button_up"]
 [connection signal="button_down" from="HUD/Control/PauseMenu/MenuButton" to="HUD" method="_on_MenuButton_button_down"]
+[connection signal="pressed" from="HUD/Control/PauseMenu/MusicaCheckButton" to="HUD" method="_on_MusicaCheckButton_pressed"]
+[connection signal="button_up" from="HUD/Control/PauseMenu/VoltarButton" to="HUD" method="_on_VoltarButton_button_up"]
 [connection signal="body_entered" from="Stomp" to="." method="_on_Stomp_body_entered"]
 [connection signal="area_entered" from="DeathZone" to="." method="_on_DeathZone_area_entered"]
 [connection signal="body_entered" from="DeathZone" to="." method="_on_DeathZone_body_entered"]

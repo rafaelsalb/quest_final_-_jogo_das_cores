@@ -34,17 +34,18 @@ func _unhandled_input(_event):
 	if Input.is_action_pressed("up") and is_on_floor():
 		mov_dir.y = -JUMP_STRENGTH
 	
-	if Input.is_action_just_pressed("clear_color"):
-		change_color(PColors.BLACK)
-	if Input.is_action_just_pressed("white_color"):
-		change_color(PColors.WHITE)
+	if Global.debug:
+		if Input.is_action_just_pressed("clear_color"):
+			change_color(PColors.BLACK)
+		if Input.is_action_just_pressed("white_color"):
+			change_color(PColors.WHITE)
 	
-	if Input.is_action_just_pressed("take_damage"):
-		take_damage(1, 1)
+		if Input.is_action_just_pressed("take_damage"):
+			take_damage(1, 1)
 	
-	for i in range(1, 9):
-		if Input.is_action_just_pressed("num_" + str(i)):
-			change_color(i - 1)
+		for i in range(1, 9):
+			if Input.is_action_just_pressed("num_" + str(i)):
+				change_color(i - 1)
 
 
 func _physics_process(_delta: float) -> void:
@@ -207,6 +208,7 @@ func _on_Stomp_body_entered(body):
 		mov_dir.y = -JUMP_STRENGTH / 2.0
 		body.die()
 		update_points(1)
+		$ImpactSFX.play()
 
 
 func _on_DeathZone_area_entered(area):

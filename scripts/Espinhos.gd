@@ -7,4 +7,4 @@ func _ready():
 
 func _on_Espinhos_body_entered(body):
 	if body.name == "Player":
-		body.die()
+		body.take_damage(1, 0)

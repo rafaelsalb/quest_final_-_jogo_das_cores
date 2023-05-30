@@ -81,34 +81,57 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="Title" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 122.0
+margin_top = 93.0
 margin_right = 518.0
-margin_bottom = 186.0
+margin_bottom = 157.0
 rect_min_size = Vector2( 0, 64 )
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 2
 
-[node name="JogarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 206.0
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 177.0
 margin_right = 518.0
-margin_bottom = 270.0
+margin_bottom = 215.0
+text = "Cores - Beta Test"
+
+[node name="JogarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 235.0
+margin_right = 518.0
+margin_bottom = 299.0
 rect_min_size = Vector2( 0, 64 )
 text = "Jogar"
 
 [node name="ConfigurarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 290.0
+margin_top = 319.0
 margin_right = 518.0
-margin_bottom = 354.0
+margin_bottom = 383.0
 rect_min_size = Vector2( 0, 64 )
 text = "Configurar"
 
 [node name="SairButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 374.0
+margin_top = 403.0
 margin_right = 518.0
-margin_bottom = 438.0
+margin_bottom = 467.0
 rect_min_size = Vector2( 0, 64 )
 text = "Sair"
+
+[node name="MusicaCheckButton" type="CheckButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+margin_top = 403.0
+margin_right = 518.0
+margin_bottom = 467.0
+rect_min_size = Vector2( 0, 64 )
+pressed = true
+text = "Musica"
+
+[node name="VoltarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+margin_top = 445.0
+margin_right = 518.0
+margin_bottom = 509.0
+rect_min_size = Vector2( 0, 64 )
+text = "Voltar"
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer"]
 margin_left = 522.0
@@ -121,11 +144,14 @@ size_flags_horizontal = 3
 [node name="Sprite" type="AnimatedSprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
 scale = Vector2( 5, 5 )
 frames = SubResource( 9 )
-frame = 1
+frame = 2
 playing = true
 offset = Vector2( 64, 64 )
 
 [node name="Sprite2" type="Sprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
 
 [connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/JogarButton" to="." method="_on_JogarButton_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/ConfigurarButton" to="." method="_on_ConfigurarButton_button_up"]
 [connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/SairButton" to="." method="_on_SairButton_button_up"]
+[connection signal="toggled" from="MarginContainer/HBoxContainer/VBoxContainer/MusicaCheckButton" to="." method="_on_MusicaCheckButton_toggled"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/VoltarButton" to="." method="_on_VoltarButton_button_up"]

@@ -19,7 +19,7 @@ func explode():
 	$DeathTimer.start()
 	set_collision_layer_bit(12, false)
 	set_collision_mask_bit(12, false)
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.set_deferred("disabled", true)
 	mov_dir = Vector2.ZERO
 	active = false
 

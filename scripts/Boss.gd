@@ -8,19 +8,27 @@ const mov_dir: Vector2 = Vector2()
 onready var coll_shape = get_node("CollisionShape2D")
 onready var projectile = preload("res://scenes/Projectile.tscn")
 onready var possible_colors = PColors.COLORS.duplicate()
+var active: bool = false
 var horizontal_dir = 1
 var aim_angle: float
 var stunned: bool = false
 var curr_color: int = 0
 
 
+signal damaged
+
+
 func _ready():
+	set_physics_process(false)
+	set_process(false)
 	randomize()
 	possible_colors.pop_back()
 	possible_colors.pop_back()
 	possible_colors.shuffle()
+	print(possible_colors)
 	curr_color = PColors.Color_TO_NAME[possible_colors[0]]
-	$ColorRect.modulate = PColors.COLORS[curr_color]
+	for child in $Indicators.get_children():
+		child.modulate = PColors.COLORS[curr_color]
 
 
 func _physics_process(_delta: float) -> void:
@@ -46,9 +54,11 @@ func aim_at(target):
 	)
 	$CannonSprite.rotation = aim_angle
 	$Position2D.position = Vector2(
-		64 * cos(aim_angle),
-		64 * sin(aim_angle)
+		48 * cos(aim_angle),
+		48 * sin(aim_angle)
 	)
+	$REye.rotation = aim_angle
+	$LEye.rotation = aim_angle
 
 
 func die():
@@ -58,14 +68,15 @@ func die():
 
 
 func shoot():
-	var projectile_instance = projectile.instance()
-	get_parent().add_child_below_node($Position2D, projectile_instance)
-	projectile_instance.mov_dir = Vector2(
-		cos(aim_angle),
-		sin(aim_angle)
-	)
-	projectile_instance.position = $Position2D.global_position
-	print(projectile_instance.name)
+	if active:
+		var projectile_instance = projectile.instance()
+		get_parent().add_child(projectile_instance)
+		projectile_instance.mov_dir = Vector2(
+			cos(aim_angle),
+			sin(aim_angle)
+		)
+		projectile_instance.global_position = $Position2D.global_position
+		print(projectile_instance.name)
 
 
 func _on_DeathTimer_timeout():
@@ -86,12 +97,17 @@ func _on_WeakSpotArea_body_entered(body):
 	if body.name == "Player" and $DamageCooldown.is_stopped() and body.color.name == curr_color:
 		print(possible_colors)
 		body.impulse(60)
+		$BounceSFX.play()
 		body.update_points(1)
+		body.change_color(PColors.WHITE)
 		$DamageCooldown.start()
 		stunned = true
 		
 		if possible_colors.size() > 1:
 			possible_colors.pop_front()
+			$Indicators.get_children()[-1].queue_free()
+			if $Indicators.get_children().size() > 0:
+				emit_signal("damaged")
 		else:
 			die()
 
@@ -100,4 +116,5 @@ func _on_DamageCooldown_timeout():
 	stunned = false
 	$WeakSpotArea/CollisionShape2D.disabled = false
 	curr_color = PColors.Color_TO_NAME[possible_colors[0]]
-	$ColorRect.modulate = PColors.COLORS[curr_color]
+	for child in $Indicators.get_children():
+		child.modulate = PColors.COLORS[curr_color]

@@ -5,9 +5,9 @@ const LEVELS = ["Level1.tscn", "Level2.tscn"]
 
 
 var curr_color: int = PColors.WHITE
-var curr_level: int = 1
+var curr_level: int = 0
 var debug: bool = false
-var lights_on: bool = false
+var lights_on: bool = true
 var lives: int = 3
 var is_player_in_dark_area
 
@@ -17,13 +17,17 @@ signal lights_off
 signal lights_on
 
 
+func _ready():
+	MusicPlayer.play("MainTheme")
+
+
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("debug"):
 		debug = not debug
 		emit_signal("switch_debug_mode")
-	if Input.is_action_just_pressed("switch_light"): #and is_player_in_dark_area:
+	if Input.is_action_just_pressed("switch_light") and is_player_in_dark_area:
 		lights_on = not lights_on
-		if lights_on:
+		if not lights_on:
 			emit_signal("lights_off")
 		else:
 			emit_signal("lights_on")
@@ -73,5 +77,8 @@ func checkpoint_checked(pos):
 
 func set_is_player_in_dark_area(x: bool):
 	is_player_in_dark_area = x
-	if not x:
+	print(is_player_in_dark_area)
+	if not x and not lights_on:
+		lights_on = true
+		print("set", is_player_in_dark_area)
 		emit_signal("lights_on")
