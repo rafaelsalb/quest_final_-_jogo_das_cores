@@ -17,6 +17,16 @@ var points
 
 
 func _ready() -> void:
+	Serial.connect("A_pressed", self, "on_A_pressed")
+	Serial.connect("B_pressed", self, "on_B_pressed")
+	Serial.connect("Start_pressed", self, "on_Start_pressed")
+	Serial.connect("analogX_neutral", self, "on_analogX_neutral")
+	Serial.connect("analog_left", self, "on_analog_left")
+	Serial.connect("analog_right", self, "on_analog_right")
+	Serial.connect("analog_up", self, "on_analog_up")
+	Serial.connect("analog_down", self, "on_analog_down")
+	
+	
 	points = 3
 	mov_dir.y = 0
 	color = PColors.PColors.new(Global.curr_color)
@@ -259,4 +269,49 @@ func _on_DeathZone_body_entered(body):
 
 
 func _on_DamageCooldownTimer_timeout():
+	pass
+
+
+func on_A_pressed():
+	if is_on_floor():
+		mov_dir.y = -JUMP_STRENGTH
+
+
+func on_B_pressed():
+#	if is_on_floor():
+#		mov_dir.y = -JUMP_STRENGTH
+	pass
+
+
+func on_Start_pressed():
+	pass
+#	Global.switch_pause()
+#	$HUD.switch_pause()
+
+
+func on_analog_left():
+	horizontal_dir = -1
+	mov_dir.x = horizontal_dir * 20
+
+
+func on_analogX_neutral():
+	horizontal_dir = 0
+	mov_dir.x = horizontal_dir * 20
+
+
+func on_analog_right():
+	horizontal_dir = 1
+	mov_dir.x = horizontal_dir * 20
+
+
+func on_analog_up():
+	if is_on_floor():
+		mov_dir.y = -JUMP_STRENGTH
+
+
+func on_analogY_neutral():
+	pass
+
+
+func on_analog_down():
 	pass
