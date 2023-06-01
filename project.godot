@@ -20,6 +20,7 @@ PColors="*res://scripts/PColors.gd"
 Global="*res://scenes/Global.tscn"
 FPScounter="res://scenes/FPScounter.tscn"
 MusicPlayer="*res://scenes/MusicPlayer.tscn"
+Serial="*res://scenes/Serial.tscn"
 
 [display]
 

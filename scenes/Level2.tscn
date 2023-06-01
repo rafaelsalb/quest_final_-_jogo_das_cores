@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scenes/ColorChanger.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Lamp.tscn" type="PackedScene" id=2]
@@ -1244,6 +1244,8 @@ b = Vector2( 0, 96 )
 [sub_resource type="RectangleShape2D" id=39]
 extents = Vector2( 48, 15 )
 
+[sub_resource type="LineShape2D" id=40]
+
 [node name="Level2" type="Node2D"]
 script = ExtResource( 8 )
 
@@ -1693,6 +1695,9 @@ position = Vector2( 3968, 1600 )
 scale = Vector2( 1500, 1 )
 z_index = 5
 z_as_relative = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathArea"]
+shape = SubResource( 40 )
 
 [connection signal="body_exited" from="BossFightArea" to="." method="_on_BossFightArea_body_exited"]
 [connection signal="timeout" from="BossFight/Timer" to="." method="_on_Timer_timeout"]
