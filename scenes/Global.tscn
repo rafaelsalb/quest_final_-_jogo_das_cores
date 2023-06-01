@@ -5,3 +5,11 @@
 [node name="Global" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
+
+[node name="PauseCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="SwitchLightsCooldown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="PauseCooldown" to="." method="_on_PauseCooldown_timeout"]

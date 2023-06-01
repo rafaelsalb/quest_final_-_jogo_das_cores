@@ -13,6 +13,7 @@
 [ext_resource path="res://QC_BackGround 16x16.png" type="Texture" id=11]
 [ext_resource path="res://QC_TileSet_Wood 16x16.png" type="Texture" id=12]
 [ext_resource path="res://QC_Objects 16x16.png" type="Texture" id=13]
+[ext_resource path="res://scenes/DeathArea.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=42]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -1109,10 +1110,6 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 36/z_index = 0
 
-[sub_resource type="SegmentShape2D" id=45]
-a = Vector2( -1000, 0 )
-b = Vector2( 1000, 0 )
-
 [node name="Level1" type="Node2D"]
 script = ExtResource( 5 )
 
@@ -1499,13 +1496,7 @@ color_name = 1
 position = Vector2( 9142, 992 )
 color_name = 6
 
-[node name="DeathArea" type="Area2D" parent="."]
-collision_layer = 256
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
-position = Vector2( 2080, 1696 )
-shape = SubResource( 45 )
+[node name="DeathArea" parent="." instance=ExtResource( 14 )]
 
 [node name="Panel" type="Panel" parent="."]
 margin_left = 576.0
@@ -1592,5 +1583,3 @@ text = "---->"
 align = 1
 valign = 1
 autowrap = true
-
-[connection signal="body_entered" from="DeathArea" to="." method="_on_DeathArea_body_entered"]

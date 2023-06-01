@@ -81,6 +81,7 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="Title" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
 margin_top = 93.0
 margin_right = 518.0
 margin_bottom = 157.0
@@ -90,29 +91,29 @@ expand = true
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 177.0
+margin_top = 135.0
 margin_right = 518.0
-margin_bottom = 215.0
-text = "Cores - Beta Test"
+margin_bottom = 173.0
+text = "Jogo das Cores - Beta test"
 
 [node name="JogarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 235.0
+margin_top = 193.0
 margin_right = 518.0
-margin_bottom = 299.0
+margin_bottom = 257.0
 rect_min_size = Vector2( 0, 64 )
 text = "Jogar"
 
 [node name="ConfigurarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 319.0
+margin_top = 277.0
 margin_right = 518.0
-margin_bottom = 383.0
+margin_bottom = 341.0
 rect_min_size = Vector2( 0, 64 )
 text = "Configurar"
 
 [node name="SairButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 403.0
+margin_top = 361.0
 margin_right = 518.0
-margin_bottom = 467.0
+margin_bottom = 425.0
 rect_min_size = Vector2( 0, 64 )
 text = "Sair"
 
@@ -144,7 +145,7 @@ size_flags_horizontal = 3
 [node name="Sprite" type="AnimatedSprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
 scale = Vector2( 5, 5 )
 frames = SubResource( 9 )
-frame = 2
+frame = 7
 playing = true
 offset = Vector2( 64, 64 )
 
