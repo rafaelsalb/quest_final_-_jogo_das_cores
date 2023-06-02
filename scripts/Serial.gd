@@ -17,13 +17,15 @@ signal analog_down
 
 func _ready():
 	for i in range(0, 20):
-		if serial_port.open_port("COM" + str(i), 115200):
+		if serial_port.open_port("COM" + str(i), 9600):
 			print(i)
 			break
 	
 
 func _process(_delta):
 	var message = serial_port.read_text()
+	$Label.text = message
+	
 	for i in message:
 		if i != "\n":
 			for j in get_children():
@@ -39,12 +41,12 @@ func _process(_delta):
 		elif i == "3":
 			emit_signal("analogX_neutral")
 		elif i == "4":
-			emit_signal("analog_left")
-		elif i == "5":
 			emit_signal("analog_right")
+		elif i == "5":
+			emit_signal("analog_left")
 		elif i == "6":
-			emit_signal("analog_up")
-		elif i == "7":
 			emit_signal("analog_down")
+		elif i == "7":
+			emit_signal("analog_up")
 		elif i == "9":
 			emit_signal("analogY_neutral")

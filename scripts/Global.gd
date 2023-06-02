@@ -102,3 +102,7 @@ func set_is_player_in_dark_area(x: bool):
 
 func _on_PauseCooldown_timeout():
 	can_pause = true
+
+
+func _on_BossDeathCooldown_timeout():
+	pass # Replace with function body.

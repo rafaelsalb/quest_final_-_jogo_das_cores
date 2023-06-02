@@ -145,7 +145,7 @@ size_flags_horizontal = 3
 [node name="Sprite" type="AnimatedSprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
 scale = Vector2( 5, 5 )
 frames = SubResource( 9 )
-frame = 4
+frame = 6
 playing = true
 offset = Vector2( 64, 64 )
 

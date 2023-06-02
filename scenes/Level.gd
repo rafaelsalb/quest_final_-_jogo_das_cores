@@ -45,3 +45,12 @@ func _on_Timer_timeout():
 	color_changer_instance.CONSUMABLE = true
 	color_changer_instance.color_name = PColors.Color_TO_NAME[$Boss.possible_colors[0]]
 	add_child(color_changer_instance)
+
+
+func _on_VictoryTimer_timeout():
+	Global.go_to_main_menu()
+
+
+func _on_DeathArea_body_entered(body):
+	if body.name == "Player":
+		body.die()

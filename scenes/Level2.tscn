@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://scenes/ColorChanger.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Lamp.tscn" type="PackedScene" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://scenes/BossFightColorChanger.tscn" type="PackedScene" id=14]
 [ext_resource path="res://res/boss_platform.tres" type="Texture" id=15]
 [ext_resource path="res://scenes/DeathArea.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/life_counter.png" type="Texture" id=17]
+[ext_resource path="res://scripts/Espinhos.gd" type="Script" id=18]
 
 [sub_resource type="ConvexPolygonShape2D" id=32]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -1427,54 +1429,67 @@ color_name = 1
 [node name="Espinhos" parent="." instance=ExtResource( 11 )]
 position = Vector2( 4590, 1175 )
 scale = Vector2( 150, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 3768, 856 )
 scale = Vector2( 20, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos3" parent="." instance=ExtResource( 11 )]
 position = Vector2( 4114, 728 )
 scale = Vector2( 30, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos4" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5408, 632 )
 scale = Vector2( 14, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos5" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5391, 519 )
 scale = Vector2( 6.4, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos6" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5135, 519 )
 scale = Vector2( 6.4, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos7" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5007, 422 )
 scale = Vector2( 6.6, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos8" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5056, 262 )
 scale = Vector2( 4.3, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos9" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5295, 199 )
 scale = Vector2( 6.5, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos10" parent="." instance=ExtResource( 11 )]
 position = Vector2( 5295, 391 )
 scale = Vector2( 6.5, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos11" parent="." instance=ExtResource( 11 )]
 position = Vector2( 4879, 390 )
 scale = Vector2( 2, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos12" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1536, 985 )
 scale = Vector2( 5, 1 )
+script = ExtResource( 18 )
 
 [node name="Espinhos13" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1632, 985 )
 scale = Vector2( 5, 1 )
+script = ExtResource( 18 )
 
 [node name="Boss" parent="." instance=ExtResource( 12 )]
 position = Vector2( 9733, 541 )
@@ -1533,22 +1548,30 @@ scale = Vector2( 1.01172, 0.765625 )
 margin_left = 425.0
 margin_top = 876.0
 margin_right = 747.0
-margin_bottom = 921.0
+margin_bottom = 929.0
 
 [node name="Label" type="Label" parent="Panel"]
 margin_right = 321.0
-margin_bottom = 45.0
+margin_bottom = 53.0
 text = "Quando não for possível formar a cor necessária,
- experimente apertar Ctrl!"
+ experimente apertar Ctrl ou       "
 align = 1
 valign = 1
 
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 241.0
+margin_top = 23.0
+margin_right = 273.0
+margin_bottom = 55.0
+texture = ExtResource( 17 )
+
 [node name="Panel2" type="Panel" parent="."]
 visible = false
-margin_left = 9536.0
-margin_top = 384.0
-margin_right = 9858.0
-margin_bottom = 429.0
+margin_left = 9537.0
+margin_top = 330.0
+margin_right = 9859.0
+margin_bottom = 375.0
 
 [node name="Label" type="Label" parent="Panel2"]
 margin_right = 321.0
@@ -1701,3 +1724,4 @@ shape = SubResource( 40 )
 
 [connection signal="body_exited" from="BossFightArea" to="." method="_on_BossFightArea_body_exited"]
 [connection signal="timeout" from="BossFight/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="DeathArea" to="." method="_on_DeathArea_body_entered"]
