@@ -4,11 +4,55 @@
 code = "shader_type canvas_item;
 
 uniform bool invert = false;
+uniform bool finished = false;
 
 void fragment() {
 	vec4 color = texture(TEXTURE, UV);
 	if (invert) {
 		COLOR = vec4(1.0 - color.rgb, color.a);
+	}
+	else if (finished) {
+		float H = 50.0 + 50.0 * cos(TIME);
+		float s = 1.0;
+	    float v = 1.0;
+	    float C = s*v;
+	    float X = C*(1.0-abs(mod(H/60.0, 2)-1.0));
+	    float m = v-C;
+	    float r,g,b;
+	    if(H >= 0.0 && H < 60.0){
+	        r = C;
+			g = X;
+			b = 0.0;
+	    }
+	    else if(H >= 60.0 && H < 120.0){
+	        r = X;
+			g = C;
+			b = 0.0;
+	    }
+	    else if(H >= 120.0 && H < 180.0){
+	        r = 0.0;
+			g = C;
+			b = X;
+	    }
+	    else if(H >= 180.0 && H < 240.0){
+	        r = 0.0;
+			g = X;
+			b = C;
+	    }
+	    else if(H >= 240.0 && H < 300.0){
+	        r = X;
+			g = 0.0;
+			b = C;
+	    }
+	    else{
+	        r = C;
+			g = 0.0;
+			b = X;
+	    }
+	    float R = (r+m);
+	    float G = (g+m);
+	    float B = (b+m);
+		COLOR = vec4(color.r * R, color.g * G, color.b * B, color.a);
 	}
 	else {
 		COLOR = color;
@@ -18,3 +62,4 @@ void fragment() {
 [resource]
 shader = SubResource( 1 )
 shader_param/invert = false
+shader_param/finished = false

@@ -14,9 +14,11 @@ func _process(_delta):
 	if is_boss_alive:
 		$Boss.aim_at($Player.position)
 	else:
-		if not $Panel2.visible:
-			$Panel2.visible = true
-			$Panel2/Label.visible = true
+		$BossFight/VictoryTimer.start()
+		if not $Label.visible:
+			$Label.visible = true
+		if not $BossFight/VictoryParticles.visible:
+			$BossFight/VictoryParticles.visible = true
 
 
 func _on_BossFightArea_body_exited(body):

@@ -14,6 +14,7 @@ onready var run_collision = get_node("RunCollisionShape")
 var horizontal_dir: float
 var color
 var points
+var finished_game = false
 
 
 func _ready() -> void:
@@ -71,6 +72,11 @@ func _physics_process(_delta: float) -> void:
 func _process(_delta: float) -> void:
 	$Label.visible = Global.debug
 	update_animation()
+	if Global.finished_game:
+		if not finished_game:
+			finished_game = true
+			$AnimatedSprite.get_material().set_shader_param("finished", true)
+			$HUD/ColorRect.visible = false
 
 
 func change_color(color_i: int) -> void:

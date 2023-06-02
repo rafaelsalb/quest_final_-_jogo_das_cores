@@ -11,6 +11,7 @@ var lights_on: bool = true
 var lives: int = 3
 var is_player_in_dark_area
 var can_pause: bool = true
+var finished_game: bool = false
 
 
 signal switch_debug_mode

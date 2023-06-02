@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://scenes/ColorChanger.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Lamp.tscn" type="PackedScene" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://scenes/DeathArea.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/life_counter.png" type="Texture" id=17]
 [ext_resource path="res://scripts/Espinhos.gd" type="Script" id=18]
+[ext_resource path="res://res/HUD_theme.tres" type="Theme" id=19]
+[ext_resource path="res://assets/check_point_light.png" type="Texture" id=20]
 
 [sub_resource type="ConvexPolygonShape2D" id=32]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -1243,6 +1245,44 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 a = Vector2( 0, -240 )
 b = Vector2( 0, 96 )
 
+[sub_resource type="ParticlesMaterial" id=41]
+flag_disable_z = true
+gravity = Vector3( 0, 49, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 1.0
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.13
+color = Color( 1, 0.921569, 0, 1 )
+
+[sub_resource type="ParticlesMaterial" id=42]
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+gravity = Vector3( 0, 49, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 1.0
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.13
+color = Color( 1, 0.921569, 0, 1 )
+
+[sub_resource type="ParticlesMaterial" id=43]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, 48, 0 )
+initial_velocity = 400.0
+initial_velocity_random = 1.0
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.13
+color = Color( 1, 0.921569, 0, 1 )
+
 [sub_resource type="RectangleShape2D" id=39]
 extents = Vector2( 48, 15 )
 
@@ -1311,7 +1351,7 @@ position = Vector2( 4646, 852 )
 color_name = 1
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 190, -144 )
+position = Vector2( 8774, 465 )
 collision_layer = 5376
 collision_mask = 5376
 
@@ -1536,6 +1576,60 @@ position = Vector2( 402, 480 )
 wait_time = 3.0
 one_shot = true
 
+[node name="VictoryParticles" type="Node2D" parent="BossFight"]
+visible = false
+
+[node name="Particles2D" type="Particles2D" parent="BossFight/VictoryParticles"]
+lifetime = 10.0
+speed_scale = 7.26
+explosiveness = 1.0
+process_material = SubResource( 41 )
+texture = ExtResource( 20 )
+
+[node name="Particles2D2" type="Particles2D" parent="BossFight/VictoryParticles"]
+position = Vector2( 1310, 0 )
+lifetime = 10.0
+speed_scale = 7.26
+explosiveness = 1.0
+process_material = SubResource( 42 )
+texture = ExtResource( 20 )
+
+[node name="Particles2D3" type="Particles2D" parent="BossFight/VictoryParticles"]
+position = Vector2( 404, 640 )
+lifetime = 10.0
+speed_scale = 7.26
+explosiveness = 1.0
+process_material = SubResource( 43 )
+texture = ExtResource( 20 )
+
+[node name="Particles2D4" type="Particles2D" parent="BossFight/VictoryParticles"]
+position = Vector2( 792, 640 )
+lifetime = 10.0
+speed_scale = 7.26
+explosiveness = 1.0
+process_material = SubResource( 43 )
+texture = ExtResource( 20 )
+
+[node name="Particles2D5" type="Particles2D" parent="BossFight/VictoryParticles"]
+position = Vector2( 1062, 640 )
+lifetime = 10.0
+speed_scale = 7.26
+explosiveness = 1.0
+process_material = SubResource( 43 )
+texture = ExtResource( 20 )
+
+[node name="Particles2D6" type="Particles2D" parent="BossFight/VictoryParticles"]
+position = Vector2( 206, 640 )
+lifetime = 10.0
+speed_scale = 7.26
+explosiveness = 1.0
+process_material = SubResource( 43 )
+texture = ExtResource( 20 )
+
+[node name="VictoryTimer" type="Timer" parent="BossFight"]
+wait_time = 30.0
+one_shot = true
+
 [node name="DarkArea" parent="." instance=ExtResource( 13 )]
 position = Vector2( 657, 869 )
 scale = Vector2( 0.462891, 0.244141 )
@@ -1566,18 +1660,13 @@ margin_right = 273.0
 margin_bottom = 55.0
 texture = ExtResource( 17 )
 
-[node name="Panel2" type="Panel" parent="."]
-visible = false
-margin_left = 9537.0
-margin_top = 330.0
-margin_right = 9859.0
-margin_bottom = 375.0
-
-[node name="Label" type="Label" parent="Panel2"]
-margin_right = 321.0
-margin_bottom = 45.0
-text = "Você ganhou!
-ESC para voltar para o menu (WIP)"
+[node name="Label" type="Label" parent="."]
+margin_left = 9435.0
+margin_top = 294.0
+margin_right = 9953.0
+margin_bottom = 373.0
+theme = ExtResource( 19 )
+text = "Congratulations! You won!"
 align = 1
 valign = 1
 
@@ -1713,6 +1802,22 @@ shape = SubResource( 39 )
 one_way_collision = true
 one_way_collision_margin = 0.1
 
+[node name="BossPlatform9" type="StaticBody2D" parent="."]
+position = Vector2( 9762, 512 )
+collision_layer = 4096
+collision_mask = 4096
+
+[node name="Sprite" type="Sprite" parent="BossPlatform9"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 15 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossPlatform9"]
+position = Vector2( 48, 15 )
+shape = SubResource( 39 )
+one_way_collision = true
+one_way_collision_margin = 0.1
+
 [node name="DeathArea" parent="." instance=ExtResource( 16 )]
 position = Vector2( 3968, 1600 )
 scale = Vector2( 1500, 1 )
@@ -1724,4 +1829,5 @@ shape = SubResource( 40 )
 
 [connection signal="body_exited" from="BossFightArea" to="." method="_on_BossFightArea_body_exited"]
 [connection signal="timeout" from="BossFight/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="BossFight/VictoryTimer" to="." method="_on_VictoryTimer_timeout"]
 [connection signal="body_entered" from="DeathArea" to="." method="_on_DeathArea_body_entered"]

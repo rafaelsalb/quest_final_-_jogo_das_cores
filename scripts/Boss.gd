@@ -64,7 +64,7 @@ func aim_at(target):
 func die():
 	print("ganhaste!")
 	get_parent().is_boss_alive = false
-	Global.get_child(2)
+	Global.finished_game = true
 	queue_free()
 
 
