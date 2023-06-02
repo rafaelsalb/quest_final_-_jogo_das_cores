@@ -11,7 +11,7 @@ func switch_pause():
 
 
 func _unhandled_input(_event):
-	if Input.is_action_just_pressed("pause") and Global.can_pause:
+	if Input.is_action_just_pressed("pause"):
 		switch_pause()
 
 

@@ -1,9 +1,24 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://res/MainMenu_theme.tres" type="Theme" id=2]
 [ext_resource path="res://res/player_run.tres" type="Texture" id=3]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://assets/fonts/CoffeCake.otf" type="DynamicFontData" id=5]
+
+[sub_resource type="Shader" id=10]
+code = "shader_type canvas_item;
+
+void fragment() {
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 72
+font_data = ExtResource( 5 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -44,6 +59,27 @@ animations = [ {
 "name": "default",
 "speed": 12.0
 } ]
+
+[sub_resource type="Curve" id=14]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.998092, 0.230061 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=15]
+curve = SubResource( 14 )
+
+[sub_resource type="ParticlesMaterial" id=13]
+emission_shape = 2
+emission_box_extents = Vector3( 256, 36, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 0.73
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 5.0
+scale_curve = SubResource( 15 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -91,29 +127,31 @@ expand = true
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 135.0
+material = SubResource( 11 )
+margin_top = 116.0
 margin_right = 518.0
-margin_bottom = 173.0
-text = "Jogo das Cores - Beta test"
+margin_bottom = 192.0
+custom_fonts/font = SubResource( 12 )
+text = "Chroma Blast"
 
 [node name="JogarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 193.0
+margin_top = 212.0
 margin_right = 518.0
-margin_bottom = 257.0
+margin_bottom = 276.0
 rect_min_size = Vector2( 0, 64 )
 text = "Jogar"
 
 [node name="ConfigurarButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 277.0
+margin_top = 296.0
 margin_right = 518.0
-margin_bottom = 341.0
+margin_bottom = 360.0
 rect_min_size = Vector2( 0, 64 )
 text = "Configurar"
 
 [node name="SairButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 361.0
+margin_top = 380.0
 margin_right = 518.0
-margin_bottom = 425.0
+margin_bottom = 444.0
 rect_min_size = Vector2( 0, 64 )
 text = "Sair"
 
@@ -145,11 +183,16 @@ size_flags_horizontal = 3
 [node name="Sprite" type="AnimatedSprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
 scale = Vector2( 5, 5 )
 frames = SubResource( 9 )
-frame = 6
 playing = true
 offset = Vector2( 64, 64 )
 
 [node name="Sprite2" type="Sprite" parent="MarginContainer/HBoxContainer/CenterContainer"]
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 321, 234 )
+amount = 16
+lifetime = 5.0
+process_material = SubResource( 13 )
 
 [connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/JogarButton" to="." method="_on_JogarButton_button_up"]
 [connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/ConfigurarButton" to="." method="_on_ConfigurarButton_button_up"]

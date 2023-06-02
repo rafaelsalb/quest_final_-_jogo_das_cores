@@ -15,6 +15,8 @@ func _on_SairButton_button_up():
 
 func _process(delta):
 	$MarginContainer/HBoxContainer/CenterContainer/Sprite.modulate = Color.from_hsv(0.5 + 0.5 * cos(time), 1.0, 1.0)
+	$MarginContainer/HBoxContainer/VBoxContainer/Label.modulate = Color.from_hsv(0.5 + 0.5 * cos(time), 1.0, 1.0)
+	$Particles2D.modulate = Color.from_hsv(0.5 + 0.5 * cos(time), 1.0, 1.0)
 	time += delta / 2.0
 
 

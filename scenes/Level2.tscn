@@ -1351,7 +1351,7 @@ position = Vector2( 4646, 852 )
 color_name = 1
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 8774, 465 )
+position = Vector2( 150, 29 )
 collision_layer = 5376
 collision_mask = 5376
 
@@ -1661,6 +1661,7 @@ margin_bottom = 55.0
 texture = ExtResource( 17 )
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = 9435.0
 margin_top = 294.0
 margin_right = 9953.0
