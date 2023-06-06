@@ -17,13 +17,13 @@ signal analog_down
 
 
 func _ready():
-#	for i in range(0, 20):
-#		if serial_port.open_port("COM" + str(i), 9600):
-#			print(i)
-#			serial_enabled = true
-#			break
-	if serial_port.open_port("COM4", 9600):
-		serial_enabled = true
+	for i in range(0, 20):
+		if serial_port.open_port("COM" + str(i), 9600):
+			print(i)
+			serial_enabled = true
+			break
+#	if serial_port.open_port("COM4", 9600):
+#		serial_enabled = true
 	
 
 func _process(_delta):
